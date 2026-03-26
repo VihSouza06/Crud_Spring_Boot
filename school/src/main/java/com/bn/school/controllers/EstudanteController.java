@@ -30,11 +30,6 @@ public class EstudanteController {
        return ResponseEntity.ok().body(requeste);
     }
 
-    /*@PostMapping
-    public EstudanteModel criarEstudante(@RequestBody EstudanteModel estudanteModel){
-        return estudanteService.criarEstudante(estudanteModel);
-    }*/
-
     //Codigo de Erro dar 201, não 200
     @PostMapping
     public ResponseEntity<EstudanteModel> criarEstudante(@RequestBody EstudanteModel estudanteModel){
@@ -43,11 +38,6 @@ public class EstudanteController {
                 .path("/{id}").buildAndExpand(estudanteModel.getId()).toUri();
         return ResponseEntity.created(uri).body(requeste);
     }
-
-   /* @DeleteMapping("/{id}")
-    public void deletarEstudante(@PathVariable Long id){
-        estudanteService.deletarEstudante(id);
-    }*/
 
     //Codigo de Erro dar 204, não 200
     @DeleteMapping("/{id}")
@@ -62,8 +52,10 @@ public class EstudanteController {
     }
 
     @PutMapping("/{id}")
-    public EstudanteModel atualizarEstudante(@PathVariable Long id, EstudanteModel estudanteModel){
-        return estudanteService.atualizarEstudante(id, estudanteModel);
+    public ResponseEntity<EstudanteModel> atualizarEstudante
+            (@PathVariable Long id, @RequestBody EstudanteModel estudanteModel){
+        EstudanteModel estudanteAtualizado = estudanteService.atualizarEstudante(id, estudanteModel);
+        return ResponseEntity.ok(estudanteAtualizado);
     }
 
 }
