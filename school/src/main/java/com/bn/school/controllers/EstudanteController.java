@@ -18,16 +18,16 @@ public class EstudanteController {
     @Autowired
     private EstudanteService estudanteService;
 
-    /* @GetMapping
-    public List<EstudanteModel> findAll(){
-        return estudanteService.findAll();
-    }*/
-
     //Codigo de Erro dar 201, não 200
     @GetMapping
     public ResponseEntity<List<EstudanteModel>>findAll(){
        List<EstudanteModel> requeste = estudanteService.findAll();
        return ResponseEntity.ok().body(requeste);
+    }
+
+    @GetMapping("/{id}")
+    public EstudanteModel buscarPorId(@PathVariable Long id){
+        return estudanteService.buscarPorId(id);
     }
 
     //Codigo de Erro dar 201, não 200
@@ -44,11 +44,6 @@ public class EstudanteController {
     public ResponseEntity<?> deletarEstudante(@PathVariable Long id){
         estudanteService.deletarEstudante(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/{id}")
-    public EstudanteModel buscarPorId(@PathVariable Long id){
-        return estudanteService.buscarPorId(id);
     }
 
     @PutMapping("/{id}")
